@@ -1,0 +1,9 @@
+apiVersion: v2
+name: nexusllm
+description: Production-grade LLM Inference Gateway
+type: application
+version: 0.1.0
+appVersion: "1.0.0"
+maintainers:
+  - name: MohammedZakirMemon
+    url: https://github.com/MohammedZakirMemon

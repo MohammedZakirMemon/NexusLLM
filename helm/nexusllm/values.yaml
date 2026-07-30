@@ -1,0 +1,68 @@
+replicaCount: 2
+
+image:
+  repository: ghcr.io/mohammedZakirMemon/nexusllm
+  pullPolicy: IfNotPresent
+  tag: "latest"
+
+service:
+  type: ClusterIP
+  port: 8080
+
+ingress:
+  enabled: true
+  className: "nginx"
+  annotations:
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"
+  hosts:
+    - host: nexusllm.example.com
+      paths:
+        - path: /
+          pathType: Prefix
+  tls:
+    - secretName: nexusllm-tls
+      hosts:
+        - nexusllm.example.com
+
+resources:
+  requests:
+    cpu: "250m"
+    memory: "256Mi"
+  limits:
+    cpu: "1000m"
+    memory: "512Mi"
+
+autoscaling:
+  enabled: true
+  minReplicas: 2
+  maxReplicas: 10
+  targetCPUUtilizationPercentage: 70
+  targetMemoryUtilizationPercentage: 80
+
+env:
+  PORT: "8080"
+  ENVIRONMENT: "production"
+  RATE_LIMIT_RPM: "60"
+  CACHE_TTL_SECONDS: "3600"
+
+# Secrets managed via AWS Secrets Manager in production
+# Set these as Kubernetes secrets or use External Secrets Operator
+secretName: nexusllm-secrets
+
+livenessProbe:
+  httpGet:
+    path: /health
+    port: 8080
+  initialDelaySeconds: 10
+  periodSeconds: 15
+
+readinessProbe:
+  httpGet:
+    path: /health
+    port: 8080
+  initialDelaySeconds: 5
+  periodSeconds: 10
+
+podDisruptionBudget:
+  enabled: true
+  minAvailable: 1
