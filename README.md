@@ -31,19 +31,19 @@ NexusLLM is a self-hosted API gateway that sits in front of multiple LLM provide
 
 ```
                          ┌─────────────────────────────────────────┐
-                         │              NexusLLM Gateway            │
-                         │                                          │
+                         │              NexusLLM Gateway           │
+                         │                                         │
 Client ─── HTTPS ──────► │  Auth MW ─► Rate Limiter ─► Cache Check │
-                         │                    │              │      │
-                         │                    │         Cache HIT   │
-                         │                    ▼              │      │
-                         │            LLM Router ◄───────────┘      │
-                         │           /    |    \                     │
-                         │      OpenAI Anthropic Gemini              │
-                         │           \    |    /                     │
-                         │            Fallback Chain                 │
-                         │                    │                      │
-                         │          Metrics + Audit Log              │
+                         │                    │              │     │
+                         │                    │         Cache HIT  │
+                         │                    ▼              │     │
+                         │            LLM Router ◄───────────┘     │
+                         │           /    |    \                   │
+                         │      OpenAI Anthropic Gemini            │
+                         │           \    |    /                   │
+                         │            Fallback Chain               │
+                         │                    │                    │
+                         │          Metrics + Audit Log            │
                          └─────────────────────────────────────────┘
                                     │                 │
                               PostgreSQL            Redis
