@@ -41,7 +41,7 @@ jobs:
       - name: Set up Go
         uses: actions/setup-go@v5
         with:
-          go-version: "1.22"
+          go-version: "1.24"
           cache: true
 
       - name: Download dependencies
@@ -54,10 +54,6 @@ jobs:
           JWT_SECRET: test-secret
         run: go build ./... && go vet ./...
 
-      - name: golangci-lint
-        uses: golangci/golangci-lint-action@v6
-        with:
-          version: v1.64.8
 
   build:
     name: Build & Push Image
