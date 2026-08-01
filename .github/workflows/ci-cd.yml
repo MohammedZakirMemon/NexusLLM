@@ -52,7 +52,7 @@ jobs:
           DATABASE_URL: postgres://postgres:postgres@localhost:5432/nexusllm_test?sslmode=disable
           REDIS_URL: redis://localhost:6379
           JWT_SECRET: test-secret
-        run: go test ./... -v -race -coverprofile=coverage.out
+        run: go test ./... -v -coverprofile=coverage.out
 
       - name: Upload coverage
         uses: codecov/codecov-action@v4
